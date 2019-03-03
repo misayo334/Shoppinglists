@@ -28,7 +28,7 @@
                     {!! Form::label('password_confirmation', 'Confirmation') !!}
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
-
+                <br>
                 {!! Form::submit('Register', ['class' => 'btn-outline-success btn-block']) !!}
             {!! Form::close() !!}
         </div>
