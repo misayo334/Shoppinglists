@@ -8,10 +8,13 @@
             <hr class="my-4">
             
             <div>
-                <p class="btn btn-outline-success btn-sm">Login button here</p>
-                
+                @if (Auth::check())
+                    {{ Auth::user()->name }}
+                @else
+                {!! link_to_route('login', 'Login', [], ['class' => 'btn btn-outline-success btn-lg']) !!}
                 
                 {!! link_to_route('signup.get', 'Register now!', [], ['class' => 'btn btn-outline-success btn-lg']) !!}
+                @endif
             </div>
         </div>
     </div>
