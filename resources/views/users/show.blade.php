@@ -13,10 +13,12 @@
             </div>
         </aside>
         <div class="col-sm-8">
-            ここにuser詳細を表示？
+            <p>Nickname :  {{ $user->name }}</p>
+            <p>Email :  {{ $user->email }}</p>
+            <p>Registered at :  {{ $user->created_at }}</p>
             <br>
             <br>
-            {!! link_to_route('users.index', 'Back to Manage Family', [], ['class' => 'nav-link']) !!}
+            {!! link_to_route('users.index', 'Back to Manage Family', [], ['class' => 'btn btn-outline-success']) !!}
         </div>
     </div>
     </div>

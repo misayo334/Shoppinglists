@@ -11,7 +11,7 @@
                 @if (Auth::check())
                     <li>{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item"><a href="#" class="nav-link">Create List</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Edit List</a></li>
+                    <li>{!! link_to_route('shoplists.get', 'My Shoplists', [], ['class' => 'nav-link']) !!}</li>
                     <li class="nav-item"><a href="#" class="nav-link">Shop w List</a></li>
                     <li>{!! link_to_route('users.index', 'Manage Family', [], ['class' => 'nav-link']) !!}</li>
                 @else

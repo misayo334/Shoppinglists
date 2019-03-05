@@ -1,0 +1,16 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Shoplist;
+
+class Shoplist_item extends Model
+{
+    protected $fillable = ['shoplist_item_id', 'shoplist_id', 'item_name', 'qty', 'item_status'];
+    
+    public function shoplist()
+    {
+        return $this->belongsTo(Shoplist::class);
+    }
+}
