@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
     Route::resource('shoplists', 'ShoppingListsController');
     Route::get('shoplists', 'ShoppingListsController@index')->name('shoplists.get');
+    Route::get('shoplists/{id}', 'ShoppingListsController@show')->name('shoplists.show');
 });

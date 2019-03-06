@@ -24,9 +24,23 @@ class ShoppingListsController extends Controller
         return view('shoppinglist.index', $data);
     }
     
-    public function show()
+    public function show($id)
     {
-        
-        return view('shoppinglist.show', $data);
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $shoplist = $user->shoplists()->find($id);
+            $assigned_to = \Auth::user($shoplist->assigned_to);
+            $shoplist_items = $shoplist->shoplist_items()->get();
+            
+            $data = [
+                'user' => $user,
+                'shoplist' => $shoplist,
+                'assigned_to' => $assigned_to,
+                'shoplist_items' => $shoplist_items
+            ];
+            
+            return view('shoppinglist.show', $data);
+        }
     }
 }
