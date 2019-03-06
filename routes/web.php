@@ -28,6 +28,13 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
     Route::resource('shoplists', 'ShoppingListsController');
+    
+    //リスト一覧
     Route::get('shoplists', 'ShoppingListsController@index')->name('shoplists.get');
+    //リスト詳細
     Route::get('shoplists/{id}', 'ShoppingListsController@show')->name('shoplists.show');
+    //新規リスト作成
+    Route::get('shoplists/create', 'ShoppingListsController@create')->name('shoplists.create');
+    //新規リスト保存
+    Route::post('shoplists', 'ShoppingListsController@store')->name('shoplists.post');
 });

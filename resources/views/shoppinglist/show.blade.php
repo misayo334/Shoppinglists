@@ -4,6 +4,7 @@
     <div>
         <h2>Display Shopping List</h2>
         <h6>List name: {!! nl2br(e($shoplist->shoplist_name)) !!}</h6>
+        <h6>Created by: {!! nl2br(e($user->name)) !!}</h6>
         <h6>Assigned to: {!! nl2br(e($assigned_to->name)) !!}</h6>
         <h6>Items to buy: </h6>
     </div>

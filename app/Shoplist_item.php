@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Shoplist;
+use App\Shoplist;           //追加
 
 class Shoplist_item extends Model
 {

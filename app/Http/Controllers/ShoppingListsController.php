@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;                       // 追加
+use App\Shoplist;                   // 追加
+use App\Shoplist_item;              // 追加
 
 class ShoppingListsController extends Controller
 {
@@ -30,7 +33,7 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $shoplist = $user->shoplists()->find($id);
-            $assigned_to = \Auth::user($shoplist->assigned_to);
+            $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
             
             $data = [
@@ -41,6 +44,47 @@ class ShoppingListsController extends Controller
             ];
             
             return view('shoppinglist.show', $data);
+        }
+    }
+    
+    public function create()
+    {
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $shoplist = new Shoplist;
+            $shoplist_item = new Shoplist_item;
+    
+            return view('shoppinglist.create', [
+                'shoplist' => $shoplist,
+                'shoplist_item' => $shoplist_item,
+            ]);
+        
+        }
+    }
+    
+    public function store(Request $request)
+    {
+        if (\Auth::check()) {
+            
+            $user = \Auth::user();
+            
+            $this->validate($request, [
+            'shoplist_name' => 'required|max:191',   
+            'assigned_to' => 'required',  
+            ]);
+            
+            $request->user()->shoplists()->create([
+                'shoplist_name' => $request->shoplist_name,
+                'status' => 'open',
+                'assigned_to' => $request->assigned_to,
+            ]);
+
+        return redirect('/');
+            
+            
+            
+        
         }
     }
 }
