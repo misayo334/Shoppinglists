@@ -2,9 +2,9 @@
 
 @section('content')
     <div>
-        <h2>Create Shopping List</h2>
+        <h2>Edit Shopping List</h2>
         
-        {!! Form::open(['route' => 'shoplists.post']) !!}
+        {!! Form::model($shoplist, ['route' => ['shoplists.update', $shoplist->id], 'method' => 'put']) !!}
             <div class="form-group">
                 {!! Form::label('shoplist_name', 'List name') !!}
                 {!! Form::text('shoplist_name', old('shoplist_name'), ['class' => 'form-control']) !!}
@@ -14,7 +14,6 @@
                 {!! Form::text('assigned_to', old('assigned_to'), ['class' => 'form-control']) !!}
             </div>
             
-        
             <h6>Items to buy: </h6>
             
             <table class="table">
@@ -26,16 +25,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 1; $i < 6; $i++)
+                    @foreach ($shoplist_items as $shoplist_item)
                     <tr>
-                        <td scope="row">{!! Form::label('shoplist_item_id'. $i, $i, ['class' => 'form-control']) !!}</td>
-                        <td scope="row">{!! Form::text('item_name'. $i, old('item_name'. $i), ['class' => 'form-control']) !!}</td> 
-                        <td scope="row">{!! Form::text('qty'. $i, old('qty'. $i), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::label('shoplist_item_id' . $shoplist_item->shoplist_item_id, e($shoplist_item->shoplist_item_id), ['class' => 'form-control']) !!}</td>
+                        <td scope="row">{!! Form::text('item_name' . $shoplist_item->shoplist_item_id, e($shoplist_item->item_name), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty' . $shoplist_item->shoplist_item_id, e($shoplist_item->qty), ['class' => 'form-control']) !!}</td> 
                     </tr>
-                    @endfor
+                    @endforeach
             
                 </tbody>
             </table>
+            
+            
     
             <br>
             {!! Form::submit('OK', ['class' => 'btn-outline-success btn-sm']) !!}

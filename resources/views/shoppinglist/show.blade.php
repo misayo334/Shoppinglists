@@ -35,6 +35,7 @@
     
      
     {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success btn-sm']) !!}
+    {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success btn-sm']) !!}
     
 
 @endsection

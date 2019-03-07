@@ -87,7 +87,7 @@ class ShoppingListsController extends Controller
             
             if ($request->item_name1) {
                 $shoplist->shoplist_items()->create([
-                    'shoplist_item_id' => '1',
+                    'shoplist_item_id' => 1,
                     'item_name' => $request->item_name1,
                     'qty' => $request->qty1,
                     'item_status' => 'open'
@@ -96,7 +96,7 @@ class ShoppingListsController extends Controller
             
             if ($request->item_name2) {
                 $shoplist->shoplist_items()->create([
-                    'shoplist_item_id' => '2',
+                    'shoplist_item_id' => 2,
                     'item_name' => $request->item_name2,
                     'qty' => $request->qty2,
                     'item_status' => 'open'
@@ -105,7 +105,7 @@ class ShoppingListsController extends Controller
             
             if ($request->item_name3) {
                 $shoplist->shoplist_items()->create([
-                    'shoplist_item_id' => '3',
+                    'shoplist_item_id' => 3,
                     'item_name' => $request->item_name3,
                     'qty' => $request->qty3,
                     'item_status' => 'open'
@@ -114,7 +114,7 @@ class ShoppingListsController extends Controller
             
             if ($request->item_name4) {
                 $shoplist->shoplist_items()->create([
-                    'shoplist_item_id' => '4',
+                    'shoplist_item_id' => 4,
                     'item_name' => $request->item_name4,
                     'qty' => $request->qty4,
                     'item_status' => 'open'
@@ -123,12 +123,13 @@ class ShoppingListsController extends Controller
             
             if ($request->item_name5) {
                 $shoplist->shoplist_items()->create([
-                    'shoplist_item_id' => '5',
+                    'shoplist_item_id' => 5,
                     'item_name' => $request->item_name5,
                     'qty' => $request->qty5,
                     'item_status' => 'open'
                     ]);
             }
+            
 
             $data = [];
         
@@ -142,6 +143,112 @@ class ShoppingListsController extends Controller
         
             return view('shoppinglist.index', $data);           
             
+        }
+    }
+    
+    public function edit($id)       
+    {
+            
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $shoplist = $user->shoplists()->find($id);
+            $assigned_to = User::find($shoplist->assigned_to);
+            $shoplist_items = $shoplist->shoplist_items()->get();
+            
+            $data = [
+                'user' => $user,
+                'shoplist' => $shoplist,
+                'assigned_to' => $assigned_to,
+                'shoplist_items' => $shoplist_items
+            ];
+            
+            return view('shoppinglist.edit', $data);
+        }
+    }
+    
+    public function update(Request $request, $id)
+    {
+        if (\Auth::check()) {
+            
+            $user = \Auth::user();
+            
+            $this->validate($request, [
+                'shoplist_name' => 'required|max:191',   
+                'assigned_to' => 'required', 
+                'item_name1' => 'required|max:191',
+                'qty1' => 'required'
+                ]);
+    
+            $shoplist = $user->shoplists()->find($id);
+            
+            $shoplist->update([
+                'shoplist_name' => $request->shoplist_name,
+                'status' => 'open',
+                'assigned_to' => $request->assigned_to,
+            ]);
+            
+            if ($request->item_name1) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 1)->first();
+                $shoplist_item->update([
+                    'shoplist_item_id' => '1',
+                    'item_name' => $request->item_name1,
+                    'qty' => $request->qty1,
+                    'item_status' => 'open'
+                    ]);
+            }
+            
+            if ($request->item_name2) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 2)->first();
+                $shoplist_item->update([
+                    'shoplist_item_id' => '2',
+                    'item_name' => $request->item_name2,
+                    'qty' => $request->qty2,
+                    'item_status' => 'open'
+                    ]);
+            }
+            
+            if ($request->item_name3) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 3)->first();
+                $shoplist_item->update([
+                    'shoplist_item_id' => '3',
+                    'item_name' => $request->item_name3,
+                    'qty' => $request->qty3,
+                    'item_status' => 'open'
+                    ]);
+            }
+            
+            if ($request->item_name4) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 4)->first();
+                $shoplist_item->update([
+                    'shoplist_item_id' => '4',
+                    'item_name' => $request->item_name4,
+                    'qty' => $request->qty4,
+                    'item_status' => 'open'
+                    ]);
+            }
+            
+            if ($request->item_name5) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 5)->first();
+                $shoplist_item->update([
+                    'shoplist_item_id' => '5',
+                    'item_name' => $request->item_name5,
+                    'qty' => $request->qty5,
+                    'item_status' => 'open'
+                    ]);
+            }
+    
+            $data = [];
+        
+            $user = \Auth::user();
+            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'shoplists' => $shoplists,
+            ];
+        
+            return view('shoppinglist.index', $data); 
         }
     }
 }
