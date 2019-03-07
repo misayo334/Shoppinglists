@@ -32,7 +32,8 @@
     @else
         <p>No item in this list!</p>
     @endif
-        
+    
+     
     {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success btn-sm']) !!}
     
 

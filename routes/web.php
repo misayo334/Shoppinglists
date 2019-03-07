@@ -33,8 +33,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('shoplists', 'ShoppingListsController@index')->name('shoplists.get');
     //リスト詳細
     Route::get('shoplists/{id}', 'ShoppingListsController@show')->name('shoplists.show');
-    //新規リスト作成
+    //新規リスト作成（ヘッダ部分）
     Route::get('shoplists/create', 'ShoppingListsController@create')->name('shoplists.create');
-    //新規リスト保存
+    //新規リスト保存（ヘッダ部分）
     Route::post('shoplists', 'ShoppingListsController@store')->name('shoplists.post');
+
 });

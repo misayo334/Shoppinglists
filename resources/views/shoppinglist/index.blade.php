@@ -18,5 +18,7 @@
             <p>You do not have pending shoplists</p>
         @endif
     </ul>
+    
+    {{ $shoplists->render('pagination::bootstrap-4') }}
 
 @endsection

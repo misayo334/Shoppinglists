@@ -13,7 +13,8 @@
                 {!! Form::label('assigned_to', 'Assigned to') !!}
                 {!! Form::text('assigned_to', old('assigned_to'), ['class' => 'form-control']) !!}
             </div>
-
+            
+        
             <h6>Items to buy: </h6>
             
             <table class="table">
@@ -26,19 +27,43 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td scope="row">number</td>
-                        <td scope="row">blank</td> 
-                        <td scope="row">blank</td> 
+                        <td scope="row">1</td>
+                        <td scope="row">{!! Form::text('item_name1', old('item_name1'), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty1', old('qty1'), ['class' => 'form-control']) !!}</td> 
+                    </tr>
+                    
+                    <tr>
+                        <td scope="row">2</td>
+                        <td scope="row">{!! Form::text('item_name2', old('item_name2'), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty2', old('qty2'), ['class' => 'form-control']) !!}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td scope="row">3</td>
+                        <td scope="row">{!! Form::text('item_name3', old('item_name3'), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty3', old('qty3'), ['class' => 'form-control']) !!}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td scope="row">4</td>
+                        <td scope="row">{!! Form::text('item_name4', old('item_name4'), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty4', old('qty4'), ['class' => 'form-control']) !!}</td>
+                    </tr>
+                    
+                    <tr>
+                        <td scope="row">5</td>
+                        <td scope="row">{!! Form::text('item_name5', old('item_name5'), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text('qty5', old('qty5'), ['class' => 'form-control']) !!}</td>
                     </tr>
             
                 </tbody>
             </table>
     
             <br>
-            
-            {!! Form::submit('Save', ['class' => 'btn-outline-success btn-block']) !!}
-            
+            {!! Form::submit('OK', ['class' => 'btn-outline-success btn-sm']) !!}
         {!! Form::close() !!}
+            
+            
     </div>
 
 @endsection
