@@ -11,7 +11,7 @@
             </div>
             <div class="form-group">
                 {!! Form::label('assigned_to', 'Assigned to') !!}
-                {!! Form::text('assigned_to', old('assigned_to'), ['class' => 'form-control']) !!}
+                {!! Form::select('assigned_to', $users, old('assigned_to'), ['class' => 'form-control', 'id' => 'id']) !!}
             </div>
             
             <h6>Items to buy: </h6>
@@ -27,7 +27,7 @@
                 <tbody>
                     @foreach ($shoplist_items as $shoplist_item)
                     <tr>
-                        <td scope="row">{!! Form::label('shoplist_item_id' . $shoplist_item->shoplist_item_id, e($shoplist_item->shoplist_item_id), ['class' => 'form-control']) !!}</td>
+                        <td scope="row">{!! Form::label('shoplist_item_id' . $shoplist_item->shoplist_item_id, e($shoplist_item->shoplist_item_id), ['class' => 'form-control' , 'readonly' => 'true']) !!}</td>
                         <td scope="row">{!! Form::text('item_name' . $shoplist_item->shoplist_item_id, e($shoplist_item->item_name), ['class' => 'form-control']) !!}</td> 
                         <td scope="row">{!! Form::text('qty' . $shoplist_item->shoplist_item_id, e($shoplist_item->qty), ['class' => 'form-control']) !!}</td> 
                     </tr>

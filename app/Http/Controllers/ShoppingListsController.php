@@ -54,10 +54,13 @@ class ShoppingListsController extends Controller
             $user = \Auth::user();
             $shoplist = new Shoplist;
             $shoplist_item = new Shoplist_item;
+            $users = User::pluck('name', 'id');
     
             return view('shoppinglist.create', [
+                'user' => $user,
                 'shoplist' => $shoplist,
                 'shoplist_item' => $shoplist_item,
+                'users' => $users
             ]);
         
         }
@@ -76,10 +79,12 @@ class ShoppingListsController extends Controller
             'qty1' => 'required'
             ]);
             
+            $assigned_to = User::find($request->assigned_to);
+            
             $request->user()->shoplists()->create([
                 'shoplist_name' => $request->shoplist_name,
                 'status' => 'open',
-                'assigned_to' => $request->assigned_to,
+                'assigned_to' => $assigned_to->id,
             ]);
             
             $id = \DB::getPdo()->lastInsertId();        //作成したshoplistのidを取得する。
@@ -155,12 +160,14 @@ class ShoppingListsController extends Controller
             $shoplist = $user->shoplists()->find($id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
+            $users = User::pluck('name', 'id');
             
             $data = [
                 'user' => $user,
                 'shoplist' => $shoplist,
                 'assigned_to' => $assigned_to,
-                'shoplist_items' => $shoplist_items
+                'shoplist_items' => $shoplist_items,
+                'users' => $users
             ];
             
             return view('shoppinglist.edit', $data);
