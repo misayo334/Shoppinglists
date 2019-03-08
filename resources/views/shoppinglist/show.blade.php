@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <h2>Display Shopping List</h2>
+        <h2>Display Shopping List (ID: {!! nl2br(e($shoplist->id)) !!} )</h2>
         <h6>List name: {!! nl2br(e($shoplist->shoplist_name)) !!}</h6>
         <h6>Created by: {!! nl2br(e($user->name)) !!}</h6>
         <h6>Assigned to: {!! nl2br(e($assigned_to->name)) !!}</h6>
@@ -33,9 +33,18 @@
         <p>No item in this list!</p>
     @endif
     
-     
-    {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success btn-sm']) !!}
-    {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success btn-sm']) !!}
     
+    <div>
+        <!--ボタン：一覧に戻る -->
+        {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success']) !!}
+        <!--ボタン：編集 -->
+        {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
+        <!--ボタン：削除 （削除はFormで。。）-->
+        <div>
+            {!! Form::open(['route' => ['shoplists.delete', $shoplist->id], 'method' => 'delete']) !!}
+                {!! Form::submit('Delete', ['class' => 'btn btn-outline-success']) !!}
+            {!! Form::close() !!}
+        </div>
+    </div>
 
 @endsection

@@ -41,6 +41,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('shoplists/{id}/edit', 'ShoppingListsController@edit')->name('shoplists.edit');
     //リスト更新
     Route::put('shoplists/{id}', 'ShoppingListsController@update')->name('shoplists.update');
+    //リスト削除
+    Route::delete('shoplists/{id}', 'ShoppingListsController@destroy')->name('shoplists.delete');
     
 
 });

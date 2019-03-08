@@ -251,4 +251,33 @@ class ShoppingListsController extends Controller
             return view('shoppinglist.index', $data); 
         }
     }
+    
+    public function destroy($id)
+    {
+        
+        if (\Auth::check()) {
+            
+            $user = \Auth::user();
+            $shoplist = $user->shoplists()->find($id);
+            
+            if (\Auth::id() === $shoplist->user_id) {
+                
+                $shoplist->shoplist_items()->delete();
+                $shoplist->delete();
+            } 
+        }
+        
+            $data = [];
+        
+            $user = \Auth::user();
+            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'shoplists' => $shoplists,
+            ];
+        
+            return view('shoppinglist.index', $data); 
+        
+    }
 }
