@@ -12,7 +12,6 @@
                     <li>{!! link_to_route('logout.get', 'Logout', [], ['class' => 'nav-link']) !!}</li>
                     <li>{!! link_to_route('shoplists.create', 'Create list', [], ['class' => 'nav-link']) !!}</li>
                     <li>{!! link_to_route('shoplists.get', 'My lists', [], ['class' => 'nav-link']) !!}</li>
-                    <li class="nav-item"><a href="#" class="nav-link">Shop w List</a></li>
                     <li>{!! link_to_route('users.index', 'Manage Family', [], ['class' => 'nav-link']) !!}</li>
                 @else
                     <li>{!! link_to_route('signup.get', 'Signup', [], ['class' => 'nav-link']) !!}</li>

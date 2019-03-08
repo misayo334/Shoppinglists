@@ -6,6 +6,7 @@
         <h6>List name: {!! nl2br(e($shoplist->shoplist_name)) !!}</h6>
         <h6>Created by: {!! nl2br(e($user->name)) !!}</h6>
         <h6>Assigned to: {!! nl2br(e($assigned_to->name)) !!}</h6>
+        <h6>Status: {!! nl2br(e($shoplist->status)) !!}</h6>
         <h6>Items to buy: </h6>
     </div>
     
@@ -16,6 +17,7 @@
                 <th>#</th>
                 <th scope="col">Item</th>
                 <th scope="col">Qty</th>
+                <th scope="col">Status</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +25,8 @@
             <tr>
                 <td scope="row">{!! nl2br(e($shoplist_item->shoplist_item_id)) !!}</td>
                 <td scope="row">{!! nl2br(e($shoplist_item->item_name)) !!}</td> 
-                <td scope="row">{!! nl2br(e($shoplist_item->qty)) !!}</td> 
+                <td scope="row">{!! nl2br(e($shoplist_item->qty)) !!}</td>
+                <td scope="row">{!! nl2br(e($shoplist_item->item_status)) !!}</td> 
             </tr>
             @endforeach
         </tbody>
@@ -45,6 +48,8 @@
                 {!! Form::submit('Delete', ['class' => 'btn btn-outline-success']) !!}
             {!! Form::close() !!}
         </div>
+        <!--ボタン：買物 -->
+        {!! link_to_route('shoplists.shop', 'Shop with list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
     </div>
 
 @endsection

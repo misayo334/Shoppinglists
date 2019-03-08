@@ -43,6 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('shoplists/{id}', 'ShoppingListsController@update')->name('shoplists.update');
     //リスト削除
     Route::delete('shoplists/{id}', 'ShoppingListsController@destroy')->name('shoplists.delete');
+    //お買い物画面表示
+    Route::get('shoplists/{id}/shop', 'ShoppingListsController@edit_shop')->name('shoplists.shop');
+    //お買い物ステータス更新
+    Route::put('shoplists/{id}/shop', 'ShoppingListsController@status_change')->name('shoplists.status_change');
     
 
 });

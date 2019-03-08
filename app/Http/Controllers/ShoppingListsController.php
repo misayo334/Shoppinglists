@@ -280,4 +280,90 @@ class ShoppingListsController extends Controller
             return view('shoppinglist.index', $data); 
         
     }
+    
+    public function edit_shop($id)       
+    {
+            
+        $data = [];
+        if (\Auth::check()) {
+            $user = \Auth::user();
+            $shoplist = $user->shoplists()->find($id);
+            $assigned_to = User::find($shoplist->assigned_to);
+            $shoplist_items = $shoplist->shoplist_items()->get();
+            
+            $data = [
+                'user' => $user,
+                'shoplist' => $shoplist,
+                'assigned_to' => $assigned_to,
+                'shoplist_items' => $shoplist_items
+            ];
+            
+            return view('shoppinglist.shop', $data);
+        }
+    }
+    
+    public function status_change(Request $request, $id)
+    {
+        if (\Auth::check()) {
+            
+            $user = \Auth::user();
+    
+            $shoplist = $user->shoplists()->find($id);
+            
+            $shoplist->update([
+                'status' => 'closed',
+            ]);
+            
+            if ($request->status1) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 1)->first();
+                $shoplist_item->update([
+                    'item_status' => 'closed'
+                    ]);
+            }
+            
+            if ($request->status2) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 2)->first();
+                $shoplist_item->update([
+                    'item_status' => 'closed'
+                    ]);
+            }
+            
+            if ($request->status3) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 3)->first();
+                $shoplist_item->update([
+                    'item_status' => 'closed'
+                    ]);
+            }
+            
+            if ($request->status4) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 4)->first();
+                $shoplist_item->update([
+                    'item_status' => 'closed'
+                    ]);
+            }
+            
+            if ($request->status5) {
+                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 5)->first();
+                $shoplist_item->update([
+                    'item_status' => 'closed'
+                    ]);
+            }
+            
+    
+            $data = [];
+        
+            $user = \Auth::user();
+            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            
+            $data = [
+                'user' => $user,
+                'shoplists' => $shoplists,
+            ];
+        
+            return view('shoppinglist.index', $data); 
+        }
+    
+    
+    }
+    
 }
