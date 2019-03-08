@@ -39,7 +39,7 @@
             
     
             <br>
-            {!! Form::submit('OK', ['class' => 'btn-outline-success btn-sm']) !!}
+            {!! Form::submit('OK', ['class' => 'btn-success btn-block']) !!}
         {!! Form::close() !!}
             
             
