@@ -7,7 +7,7 @@
         {!! Form::open(['route' => 'shoplists.post']) !!}
             <div class="form-group">
                 {!! Form::label('shoplist_name', 'List name') !!}
-                {!! Form::text('shoplist_name', old('shoplist_name'), ['class' => 'form-control']) !!}
+                {!! Form::text('shoplist_name', $today, ['class' => 'form-control']) !!}
             </div>
             <div class="form-group">
                 {!! Form::label('assigned_to', 'Assigned to') !!}

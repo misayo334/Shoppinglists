@@ -55,12 +55,14 @@ class ShoppingListsController extends Controller
             $shoplist = new Shoplist;
             $shoplist_item = new Shoplist_item;
             $users = User::pluck('name', 'id');
+            $today = date("Ymd");
     
             return view('shoppinglist.create', [
                 'user' => $user,
                 'shoplist' => $shoplist,
                 'shoplist_item' => $shoplist_item,
-                'users' => $users
+                'users' => $users,
+                'today' => $today
             ]);
         
         }

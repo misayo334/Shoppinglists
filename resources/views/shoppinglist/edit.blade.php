@@ -35,10 +35,7 @@
             
                 </tbody>
             </table>
-            
-            
-    
-            <br>
+
             {!! Form::submit('OK', ['class' => 'btn-success btn-block']) !!}
         {!! Form::close() !!}
             
