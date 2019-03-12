@@ -27,9 +27,9 @@
                 <tbody>
                     @for ($i = 1; $i < 6; $i++)
                     <tr>
-                        <td scope="row">{!! Form::label('shoplist_item_id'. $i, $i, ['class' => 'form-control', 'readonly' => 'true']) !!}</td>
-                        <td scope="row">{!! Form::text('item_name'. $i, old('item_name'. $i), ['class' => 'form-control']) !!}</td> 
-                        <td scope="row">{!! Form::text('qty'. $i, old('qty'. $i), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text("items[$i][shoplist_item_id]", $i, ['class' => 'form-control', 'readonly' => 'true']) !!}</td>
+                        <td scope="row">{!! Form::text("items[$i][item_name]", old("items[$i][item_name]"), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text("items[$i][qty]". $i, old("items[$i][qty]"), ['class' => 'form-control']) !!}</td> 
                     </tr>
                     @endfor
             
