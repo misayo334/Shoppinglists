@@ -23,10 +23,18 @@
             <tbody>
                 @foreach ($shoplist_items as $shoplist_item)
                 <tr>
-                    <td scope="row">{!! nl2br(e($shoplist_item->shoplist_item_id)) !!}</td>
+                    <td scope="row">{!! nl2br(e($shoplist_item->shoplist_item_id)) !!}
+                                    {{Form::hidden("items[$shoplist_item->shoplist_item_id][shoplist_item_id]", $shoplist_item->shoplist_item_id)}}</td>
                     <td scope="row">{!! nl2br(e($shoplist_item->item_name)) !!}</td> 
-                    <td scope="row">{!! nl2br(e($shoplist_item->qty)) !!}</td> 
-                    <td scope="row">{{Form::checkbox('status' . $shoplist_item->shoplist_item_id, 1, false)}}</td>
+                    <td scope="row">{!! nl2br(e($shoplist_item->qty)) !!}</td>
+                    
+                    @if($shoplist_item->item_status == "closed")
+                        <td scope="row">{{Form::hidden("items[$shoplist_item->shoplist_item_id][item_status]", 'open')}}
+                                        {{Form::checkbox("items[$shoplist_item->shoplist_item_id][item_status]", 'closed', true, ['class' => 'form-control', 'disabled' => 'disabled'])}}</td>
+                    @else
+                        <td scope="row">{{Form::hidden("items[$shoplist_item->shoplist_item_id][item_status]", 'open')}}
+                                        {{Form::checkbox("items[$shoplist_item->shoplist_item_id][item_status]", 'closed', false)}}</td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

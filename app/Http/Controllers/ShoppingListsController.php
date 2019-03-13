@@ -97,7 +97,6 @@ class ShoppingListsController extends Controller
             // dd($items);                                 //Debug挿入
             
             foreach($items as $item){
-                // dd($item["item_name"]);                 //Debug挿入
                 if ($item["item_name"]) {
                     $shoplist->shoplist_items()->create([
                         'shoplist_item_id' => $item["shoplist_item_id"],
@@ -167,8 +166,7 @@ class ShoppingListsController extends Controller
                 'assigned_to' => $request->assigned_to,
             ]);
             
-            foreach($items as $item){
-                // dd($item["item_name"]);                 //Debug挿入
+            foreach($items as $item) {
                 if ($item["item_name"]) {
                     $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', $item["shoplist_item_id"])->first();
                     $shoplist_item->update([
@@ -251,46 +249,21 @@ class ShoppingListsController extends Controller
             $user = \Auth::user();
     
             $shoplist = $user->shoplists()->find($id);
+            $items = $request->items;
             
             $shoplist->update([
-                'status' => 'closed',
+                'status' => 'shopped',
             ]);
             
-            if ($request->status1) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 1)->first();
-                $shoplist_item->update([
-                    'item_status' => 'closed'
+            foreach($items as $item) {
+                if ($item["item_status"] == "closed") {
+                    $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', $item["shoplist_item_id"])->first();
+                    $shoplist_item->update([
+                        'item_status' => 'closed'
                     ]);
+                } 
             }
-            
-            if ($request->status2) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 2)->first();
-                $shoplist_item->update([
-                    'item_status' => 'closed'
-                    ]);
-            }
-            
-            if ($request->status3) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 3)->first();
-                $shoplist_item->update([
-                    'item_status' => 'closed'
-                    ]);
-            }
-            
-            if ($request->status4) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 4)->first();
-                $shoplist_item->update([
-                    'item_status' => 'closed'
-                    ]);
-            }
-            
-            if ($request->status5) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 5)->first();
-                $shoplist_item->update([
-                    'item_status' => 'closed'
-                    ]);
-            }
-            
+
     
             $data = [];
         
