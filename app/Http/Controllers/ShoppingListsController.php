@@ -251,13 +251,13 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             
             $user = \Auth::user();
-    
             $shoplist = $user->shoplists()->find($id);
-            $items = $request->items;
-            
+           
             $shoplist->update([
-                'status' => 'shopped',
+                'status' => 'shopping',
             ]);
+            
+            $items = $request->items;
             
             foreach($items as $item) {
                 if ($item["item_status"] == "closed") {
@@ -267,7 +267,15 @@ class ShoppingListsController extends Controller
                     ]);
                 } 
             }
-
+            
+            $shoplist_items = $shoplist->shoplist_items()->get();
+            $shoplist_items_count = $shoplist_items->count();
+            $shoplist_items_closed_count = $shoplist_items->where('item_status', 'closed')->count();
+            if ($shoplist_items_count == $shoplist_items_closed_count) {
+               $shoplist->update([
+                'status' => 'closed',
+                ]); 
+            }
     
             $data = [];
         

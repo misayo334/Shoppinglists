@@ -41,7 +41,7 @@
         <!--ボタン：一覧に戻る -->
         {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success']) !!}
         
-        @if($shoplist->status != "shopped") 
+        @if($shoplist->status == "open") 
             <!--ボタン：編集 -->
             {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
             <!--ボタン：削除 （削除はFormで。。）-->
