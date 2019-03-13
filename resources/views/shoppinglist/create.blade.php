@@ -25,7 +25,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for ($i = 1; $i < 6; $i++)
+                    @for ($i = 1; $i <= 5; $i++)
                     <tr>
                         <td scope="row">{!! $i !!}
                                         {!! Form::hidden("items[$i][shoplist_item_id]", $i) !!}</td>
@@ -36,7 +36,6 @@
             
                 </tbody>
             </table>
-    
             {!! Form::submit('OK', ['class' => 'btn-success btn-block']) !!}
         {!! Form::close() !!}
             

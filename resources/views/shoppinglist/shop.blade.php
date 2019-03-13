@@ -30,7 +30,7 @@
                     
                     @if($shoplist_item->item_status == "closed")
                         <td scope="row">{{Form::hidden("items[$shoplist_item->shoplist_item_id][item_status]", 'open')}}
-                                        {{Form::checkbox("items[$shoplist_item->shoplist_item_id][item_status]", 'closed', true, ['class' => 'form-control', 'disabled' => 'disabled'])}}</td>
+                                        {{Form::checkbox("items[$shoplist_item->shoplist_item_id][item_status]", 'closed', true, ['disabled' => 'disabled'])}}</td>
                     @else
                         <td scope="row">{{Form::hidden("items[$shoplist_item->shoplist_item_id][item_status]", 'open')}}
                                         {{Form::checkbox("items[$shoplist_item->shoplist_item_id][item_status]", 'closed', false)}}</td>

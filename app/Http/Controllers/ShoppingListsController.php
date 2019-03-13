@@ -208,8 +208,7 @@ class ShoppingListsController extends Controller
                 
                 $shoplist->shoplist_items()->delete();
                 $shoplist->delete();
-            } 
-        }
+            }
         
             $data = [];
         
@@ -222,6 +221,7 @@ class ShoppingListsController extends Controller
             ];
         
             return view('shoppinglist.index', $data); 
+        }
         
     }
     
@@ -295,8 +295,6 @@ class ShoppingListsController extends Controller
         
             return view('shoppinglist.index', $data); 
         }
-    
-    
     }
     
 }
