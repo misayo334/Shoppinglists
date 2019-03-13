@@ -51,11 +51,14 @@
                 {!! Form::close() !!}
             </div>
         @endif
-        
+{{--  
         @if($shoplist_items_count != $shoplist_items_closed_count) 
+--}}
             <!--ボタン：買物 -->
             {!! link_to_route('shoplists.shop', 'Shop with list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
+{{--
         @endif
+--}}
     </div>
 
 @endsection

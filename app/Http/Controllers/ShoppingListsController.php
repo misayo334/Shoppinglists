@@ -271,11 +271,17 @@ class ShoppingListsController extends Controller
             $shoplist_items = $shoplist->shoplist_items()->get();
             $shoplist_items_count = $shoplist_items->count();
             $shoplist_items_closed_count = $shoplist_items->where('item_status', 'closed')->count();
-            if ($shoplist_items_count == $shoplist_items_closed_count) {
+            if ($shoplist_items_closed_count == 0) {
+                $shoplist->update([
+                'status' => 'open',
+                ]); 
+            }
+            elseif ($shoplist_items_count == $shoplist_items_closed_count) {
                $shoplist->update([
                 'status' => 'closed',
                 ]); 
             }
+            
     
             $data = [];
         
