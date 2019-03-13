@@ -35,12 +35,16 @@ class ShoppingListsController extends Controller
             $shoplist = $user->shoplists()->find($id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
+            $shoplist_items_count = $shoplist_items->count();
+            $shoplist_items_closed_count = $shoplist_items->where('item_status', 'closed')->count();
             
             $data = [
                 'user' => $user,
                 'shoplist' => $shoplist,
                 'assigned_to' => $assigned_to,
-                'shoplist_items' => $shoplist_items
+                'shoplist_items' => $shoplist_items,
+                'shoplist_items_count' => $shoplist_items_count,
+                'shoplist_items_closed_count' => $shoplist_items_closed_count
             ];
             
             return view('shoppinglist.show', $data);
