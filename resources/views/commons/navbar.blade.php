@@ -1,6 +1,6 @@
 <header class="mb-4">
-    <nav class="navbar navbar-expand-sm navbar-light" style="background-color:#eeeeee;"> 
-        <a class="navbar-brand" href="/"><img class="logo" src="{{ asset('images/logo.jpg') }}" alt="logo"></a>
+    <nav class="navbar navbar-expand-sm navbar-light" style="background-color:#eeeeee;">
+        <a class="navbar-brand" href="{{ route('shoplists.get', []) }}"><img class="logo" src="{{ asset('images/logo.jpg') }}" alt="logo"></a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
         </button>
