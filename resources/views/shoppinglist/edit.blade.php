@@ -27,9 +27,9 @@
                 <tbody>
                     @foreach ($shoplist_items as $shoplist_item)
                     <tr>
-                        <td scope="row">{!! Form::label('shoplist_item_id' . $shoplist_item->shoplist_item_id, e($shoplist_item->shoplist_item_id), ['class' => 'form-control' , 'readonly' => 'true']) !!}</td>
-                        <td scope="row">{!! Form::text('item_name' . $shoplist_item->shoplist_item_id, e($shoplist_item->item_name), ['class' => 'form-control']) !!}</td> 
-                        <td scope="row">{!! Form::text('qty' . $shoplist_item->shoplist_item_id, e($shoplist_item->qty), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text("items[$shoplist_item->shoplist_item_id][shoplist_item_id]", e($shoplist_item->shoplist_item_id), ['class' => 'form-control' , 'readonly' => 'true']) !!}</td>
+                        <td scope="row">{!! Form::text("items[$shoplist_item->shoplist_item_id][item_name]", e($shoplist_item->item_name), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text("items[$shoplist_item->shoplist_item_id][qty]", e($shoplist_item->qty), ['class' => 'form-control']) !!}</td> 
                     </tr>
                     @endforeach
             

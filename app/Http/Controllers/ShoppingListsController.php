@@ -154,11 +154,12 @@ class ShoppingListsController extends Controller
             $this->validate($request, [
                 'shoplist_name' => 'required|max:191',   
                 'assigned_to' => 'required', 
-                'item_name1' => 'required|max:191',
-                'qty1' => 'required'
+                'items.1.item_name' => 'required',
+                'items.1.qty' => 'required'
                 ]);
     
             $shoplist = $user->shoplists()->find($id);
+            $items = $request->items;
             
             $shoplist->update([
                 'shoplist_name' => $request->shoplist_name,
@@ -166,54 +167,17 @@ class ShoppingListsController extends Controller
                 'assigned_to' => $request->assigned_to,
             ]);
             
-            if ($request->item_name1) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 1)->first();
-                $shoplist_item->update([
-                    'shoplist_item_id' => '1',
-                    'item_name' => $request->item_name1,
-                    'qty' => $request->qty1,
-                    'item_status' => 'open'
+            foreach($items as $item){
+                // dd($item["item_name"]);                 //Debug挿入
+                if ($item["item_name"]) {
+                    $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', $item["shoplist_item_id"])->first();
+                    $shoplist_item->update([
+                        'shoplist_item_id' => $item["shoplist_item_id"],
+                        'item_name' => $item["item_name"],
+                        'qty' => $item["qty"],
+                        'item_status' => 'open'
                     ]);
-            }
-            
-            if ($request->item_name2) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 2)->first();
-                $shoplist_item->update([
-                    'shoplist_item_id' => '2',
-                    'item_name' => $request->item_name2,
-                    'qty' => $request->qty2,
-                    'item_status' => 'open'
-                    ]);
-            }
-            
-            if ($request->item_name3) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 3)->first();
-                $shoplist_item->update([
-                    'shoplist_item_id' => '3',
-                    'item_name' => $request->item_name3,
-                    'qty' => $request->qty3,
-                    'item_status' => 'open'
-                    ]);
-            }
-            
-            if ($request->item_name4) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 4)->first();
-                $shoplist_item->update([
-                    'shoplist_item_id' => '4',
-                    'item_name' => $request->item_name4,
-                    'qty' => $request->qty4,
-                    'item_status' => 'open'
-                    ]);
-            }
-            
-            if ($request->item_name5) {
-                $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', 5)->first();
-                $shoplist_item->update([
-                    'shoplist_item_id' => '5',
-                    'item_name' => $request->item_name5,
-                    'qty' => $request->qty5,
-                    'item_status' => 'open'
-                    ]);
+                } 
             }
     
             $data = [];
