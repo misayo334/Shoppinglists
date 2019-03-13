@@ -16,7 +16,7 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
@@ -113,7 +113,7 @@ class ShoppingListsController extends Controller
 
             $data = [];
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
@@ -185,7 +185,7 @@ class ShoppingListsController extends Controller
             $data = [];
         
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
@@ -214,7 +214,7 @@ class ShoppingListsController extends Controller
             $data = [];
         
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
@@ -286,7 +286,7 @@ class ShoppingListsController extends Controller
             $data = [];
         
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
             
             $data = [
                 'user' => $user,
