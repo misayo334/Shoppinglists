@@ -4,7 +4,7 @@
     <div>
         <h2>Display Shopping List (ID: {!! nl2br(e($shoplist->id)) !!} )</h2>
         <h6>List name: {!! nl2br(e($shoplist->shoplist_name)) !!}</h6>
-        <h6>Created by: {!! nl2br(e($user->name)) !!}</h6>
+        <h6>Created by: {!! nl2br(e($created_by->name)) !!}</h6>
         <h6>Assigned to: {!! nl2br(e($assigned_to->name)) !!}</h6>
         <h6>Status: {!! nl2br(e($shoplist->status)) !!}</h6>
         <h6>Items to buy: </h6>
@@ -41,19 +41,22 @@
         <!--ボタン：一覧に戻る -->
         {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success']) !!}
         
+        <!--ボタン：編集 & 削除-->
         @if($shoplist->status == "open") 
-            <!--ボタン：編集 -->
             {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
-            <!--ボタン：削除 （削除はFormで。。）-->
-            <div>
-                {!! Form::open(['route' => ['shoplists.delete', $shoplist->id], 'method' => 'delete']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-outline-success']) !!}
-                {!! Form::close() !!}
-            </div>
+           
+            <!--削除はFormで。。削除は作成者のみOKとする-->
+            @if(Auth::user()->id == $created_by->id)
+                <div>
+                    {!! Form::open(['route' => ['shoplists.delete', $shoplist->id], 'method' => 'delete']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-outline-success']) !!}
+                    {!! Form::close() !!}
+                </div>
+            @endif
         @endif
         
+        <!--ボタン：買物 -->
         @if($shoplist_items_count != $shoplist_items_closed_count) 
-            <!--ボタン：買物 -->
             {!! link_to_route('shoplists.shop', 'Shop with list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
         @endif
 

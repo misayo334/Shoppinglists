@@ -16,7 +16,11 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            $shoplists_assigned = Shoplist::where('assigned_to', $user->id)->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            
+            $shoplists = $shoplists->merge($shoplists_assigned);
+            $shoplists = $shoplists->sortByDesc('id');
             
             $data = [
                 'user' => $user,
@@ -33,6 +37,20 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $shoplist = $user->shoplists()->find($id);
+            
+            if(is_null($shoplist)){
+                $shoplist = Shoplist::find($id);
+                if($shoplist){
+                    if($shoplist->assigned_to != $user->id){
+                        return view('welcome');
+                    }
+                }
+                else {
+                    return view('welcome');
+                }
+            }
+            
+            $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
             $shoplist_items_count = $shoplist_items->count();
@@ -41,6 +59,7 @@ class ShoppingListsController extends Controller
             $data = [
                 'user' => $user,
                 'shoplist' => $shoplist,
+                'created_by' => $created_by,
                 'assigned_to' => $assigned_to,
                 'shoplist_items' => $shoplist_items,
                 'shoplist_items_count' => $shoplist_items_count,
@@ -112,8 +131,13 @@ class ShoppingListsController extends Controller
             }
 
             $data = [];
+            
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            
+            $shoplists_assigned = Shoplist::where('assigned_to', $user->id)->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            $shoplists = $shoplists->merge($shoplists_assigned);
+            $shoplists = $shoplists->sortByDesc('id');
             
             $data = [
                 'user' => $user,
@@ -132,6 +156,20 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $shoplist = $user->shoplists()->find($id);
+            
+            if(is_null($shoplist)){
+                $shoplist = Shoplist::find($id);
+                if($shoplist){
+                    if($shoplist->assigned_to != $user->id){
+                        return view('welcome');
+                    }
+                }
+                else {
+                    return view('welcome');
+                }
+            }
+            
+            $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
             $users = User::pluck('name', 'id');
@@ -139,6 +177,7 @@ class ShoppingListsController extends Controller
             $data = [
                 'user' => $user,
                 'shoplist' => $shoplist,
+                'created_by' => $created_by,
                 'assigned_to' => $assigned_to,
                 'shoplist_items' => $shoplist_items,
                 'users' => $users
@@ -161,7 +200,8 @@ class ShoppingListsController extends Controller
                 'items.1.qty' => 'required'
                 ]);
     
-            $shoplist = $user->shoplists()->find($id);
+            $shoplist = Shoplist::find($id);
+            
             $items = $request->items;
             
             $shoplist->update([
@@ -183,9 +223,13 @@ class ShoppingListsController extends Controller
             }
     
             $data = [];
-        
+            
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            
+            $shoplists_assigned = Shoplist::where('assigned_to', $user->id)->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            $shoplists = $shoplists->merge($shoplists_assigned);
+            $shoplists = $shoplists->sortByDesc('id');
             
             $data = [
                 'user' => $user,
@@ -211,9 +255,13 @@ class ShoppingListsController extends Controller
             }
         
             $data = [];
-        
+            
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            
+            $shoplists_assigned = Shoplist::where('assigned_to', $user->id)->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            $shoplists = $shoplists->merge($shoplists_assigned);
+            $shoplists = $shoplists->sortByDesc('id');
             
             $data = [
                 'user' => $user,
@@ -232,12 +280,27 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $shoplist = $user->shoplists()->find($id);
+            
+            if(is_null($shoplist)){
+                $shoplist = Shoplist::find($id);
+                if($shoplist){
+                    if($shoplist->assigned_to != $user->id){
+                        return view('welcome');
+                    }
+                }
+                else {
+                    return view('welcome');
+                }
+            }
+            
+            $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
             
             $data = [
                 'user' => $user,
                 'shoplist' => $shoplist,
+                'created_by' => $created_by,
                 'assigned_to' => $assigned_to,
                 'shoplist_items' => $shoplist_items
             ];
@@ -251,7 +314,7 @@ class ShoppingListsController extends Controller
         if (\Auth::check()) {
             
             $user = \Auth::user();
-            $shoplist = $user->shoplists()->find($id);
+            $shoplist = Shoplist::find($id);
            
             $shoplist->update([
                 'status' => 'shopping',
@@ -284,9 +347,13 @@ class ShoppingListsController extends Controller
             
     
             $data = [];
-        
+            
             $user = \Auth::user();
-            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->paginate(10);
+            $shoplists = $user->shoplists()->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            
+            $shoplists_assigned = Shoplist::where('assigned_to', $user->id)->whereNotIn('status',['closed'])->orderBy('id', 'desc')->get();
+            $shoplists = $shoplists->merge($shoplists_assigned);
+            $shoplists = $shoplists->sortByDesc('id');
             
             $data = [
                 'user' => $user,

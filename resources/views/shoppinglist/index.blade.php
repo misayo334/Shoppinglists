@@ -9,10 +9,12 @@
         @if ($shoplists->count()>0)
             @foreach ($shoplists as $shoplist)
                     <li>
-                        ID {!! nl2br(e($shoplist->id)) !!} :
+                        {!! nl2br(e($shoplist->id)) !!} :
                         {!! link_to_route('shoplists.show', nl2br(e($shoplist->shoplist_name)), ['id' => $shoplist->id], ['class' => 'btn-link']) !!}
                         (last updated at: {!! nl2br(e($shoplist->updated_at)) !!} 
-                        , status: {!! nl2br(e($shoplist->status)) !!} )
+                        , status: {!! nl2br(e($shoplist->status)) !!} 
+                        , created by: {!! nl2br(e($shoplist->user_id)) !!} 
+                        , assigned to: {!! nl2br(e($shoplist->assigned_to)) !!} )
                     </li>
             @endforeach
         @else
@@ -20,6 +22,8 @@
         @endif
     </ul>
     
-    {{ $shoplists->render('pagination::bootstrap-4') }}
+{{--   {{ $shoplists->render('pagination::bootstrap-4') }}
+--}}
+
 
 @endsection
