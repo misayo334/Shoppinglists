@@ -39,17 +39,17 @@
     
     <div>
         <!--ボタン：一覧に戻る -->
-        {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-outline-success']) !!}
+        {!! link_to_route('shoplists.get', 'Back to My Shoplists', [], ['class' => 'btn btn-success']) !!}
         
         <!--ボタン：編集 & 削除-->
         @if($shoplist->status == "open") 
-            {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
+            {!! link_to_route('shoplists.edit', 'Edit list', ['id' => $shoplist->id], ['class' => 'btn btn-success']) !!}
            
             <!--削除はFormで。。削除は作成者のみOKとする-->
             @if(Auth::user()->id == $created_by->id)
                 <div>
                     {!! Form::open(['route' => ['shoplists.delete', $shoplist->id], 'method' => 'delete']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-outline-success']) !!}
+                        {!! Form::submit('Delete', ['class' => 'btn btn-success']) !!}
                     {!! Form::close() !!}
                 </div>
             @endif
@@ -57,7 +57,7 @@
         
         <!--ボタン：買物 -->
         @if($shoplist_items_count != $shoplist_items_closed_count) 
-            {!! link_to_route('shoplists.shop', 'Shop with list', ['id' => $shoplist->id], ['class' => 'btn btn-outline-success']) !!}
+            {!! link_to_route('shoplists.shop', 'Shop with list', ['id' => $shoplist->id], ['class' => 'btn btn-success']) !!}
         @endif
 
     </div>

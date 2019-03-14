@@ -40,7 +40,7 @@
             </tbody>
         </table>
     
-        {!! Form::submit('Checkout', ['class' => 'btn-outline-success btn-sm']) !!}
+        {!! Form::submit('Checkout', ['class' => 'btn-success btn-sm']) !!}
     {!! Form::close() !!}
     
     @else
