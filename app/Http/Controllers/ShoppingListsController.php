@@ -98,10 +98,12 @@ class ShoppingListsController extends Controller
             $user = \Auth::user();
             
             $this->validate($request, [
-            'shoplist_name' => 'required|max:191',   
-            'assigned_to' => 'required',
-            'items.1.item_name' => 'required',
-            'items.1.qty' => 'required'
+                'shoplist_name' => 'required|max:191',   
+                'assigned_to' => 'required',
+                'items.1.item_name' => 'required|max:191',
+                'items.1.qty' => 'integer|required',
+                'items.*.item_name' => 'nullable|max:191',
+                'items.*.qty' => 'integer|nullable'
             ]);
             
             $assigned_to = User::find($request->assigned_to);
@@ -195,10 +197,12 @@ class ShoppingListsController extends Controller
             
             $this->validate($request, [
                 'shoplist_name' => 'required|max:191',   
-                'assigned_to' => 'required', 
-                'items.1.item_name' => 'required',
-                'items.1.qty' => 'required'
-                ]);
+                'assigned_to' => 'required',
+                'items.1.item_name' => 'required|max:191',
+                'items.1.qty' => 'integer|required',
+                'items.*.item_name' => 'nullable|max:191',
+                'items.*.qty' => 'integer|nullable'
+            ]);
     
             $shoplist = Shoplist::find($id);
             
