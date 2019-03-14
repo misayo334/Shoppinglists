@@ -29,7 +29,7 @@
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
                 <br>
-                {!! Form::submit('Register', ['class' => 'btn-outline-success btn-block']) !!}
+                {!! Form::submit('Register', ['class' => 'btn-success btn-block']) !!}
             {!! Form::close() !!}
         </div>
     </div>
