@@ -33,6 +33,17 @@
                         <td scope="row">{!! Form::text("items[$shoplist_item->shoplist_item_id][qty]", e($shoplist_item->qty), ['class' => 'form-control']) !!}</td> 
                     </tr>
                     @endforeach
+                    
+                    {{-- 下に新しい行を追加 --}}
+                    @for ($i = $last_item_id + 1; $i <= $last_item_id + 5; $i++)
+                    <tr>
+                        <td scope="row">{!! $i !!}
+                                        {!! Form::hidden("items[$i][shoplist_item_id]", $i) !!}</td>
+                        <td scope="row">{!! Form::text("items[$i][item_name]", old("items[$i][item_name]"), ['class' => 'form-control']) !!}</td> 
+                        <td scope="row">{!! Form::text("items[$i][qty]". $i, old("items[$i][qty]"), ['class' => 'form-control']) !!}</td> 
+                    </tr>
+                    @endfor
+                    
             
                 </tbody>
             </table>

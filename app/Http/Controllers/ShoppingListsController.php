@@ -175,6 +175,7 @@ class ShoppingListsController extends Controller
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
             $users = User::pluck('name', 'id');
+            $last_item_id = $shoplist->shoplist_items()->orderBy('id', 'desc')->first()->shoplist_item_id;
             
             $data = [
                 'user' => $user,
@@ -182,7 +183,8 @@ class ShoppingListsController extends Controller
                 'created_by' => $created_by,
                 'assigned_to' => $assigned_to,
                 'shoplist_items' => $shoplist_items,
-                'users' => $users
+                'users' => $users,
+                'last_item_id' => $last_item_id
             ];
             
             return view('shoppinglist.edit', $data);
@@ -217,12 +219,22 @@ class ShoppingListsController extends Controller
             foreach($items as $item) {
                 if ($item["item_name"]) {
                     $shoplist_item = $shoplist->shoplist_items()->where('shoplist_item_id', $item["shoplist_item_id"])->first();
-                    $shoplist_item->update([
+                    if($shoplist_item) {
+                        $shoplist_item->update([
+                            'shoplist_item_id' => $item["shoplist_item_id"],
+                            'item_name' => $item["item_name"],
+                            'qty' => $item["qty"],
+                            'item_status' => 'open'
+                        ]);
+                    }
+                    else {
+                        $shoplist->shoplist_items()->create([
                         'shoplist_item_id' => $item["shoplist_item_id"],
                         'item_name' => $item["item_name"],
                         'qty' => $item["qty"],
                         'item_status' => 'open'
                     ]);
+                    }
                 } 
             }
     
