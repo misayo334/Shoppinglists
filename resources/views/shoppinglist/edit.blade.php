@@ -2,7 +2,7 @@
 
 @section('content')
     <div>
-        <h2>Edit Shopping List</h2>
+        <h2>Edit Shopping List (ID: {!! $shoplist->id !!} )</h2>
         
         {!! Form::model($shoplist, ['route' => ['shoplists.update', $shoplist->id], 'method' => 'put']) !!}
             <div class="form-group">
