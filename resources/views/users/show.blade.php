@@ -18,7 +18,7 @@
             <p>Registered at :  {{ $user->created_at }}</p>
             <br>
             <br>
-            {!! link_to_route('users.index', 'Back to Manage Family', [], ['class' => 'btn btn-outline-success']) !!}
+            {!! link_to_route('family.index', 'Back to Manage Family', [], ['class' => 'btn btn-success']) !!}
         </div>
     </div>
     </div>

@@ -48,5 +48,16 @@ Route::group(['middleware' => ['auth']], function () {
     //お買い物ステータス更新
     Route::put('shoplists/{id}/shop', 'ShoppingListsController@status_change')->name('shoplists.status_change');
     
+    //ManageFamily機能:ユーザー一覧
+    Route::get('family', 'FamiliesController@index')->name('family.index');
+    
+    //ManageFamily機能:アクション
+    Route::group(['prefix' => 'users/{id}'], function () {
+        Route::post('invite', 'FamiliesController@store')->name('family.invite');
+        Route::post('accept', 'FamiliesController@update')->name('family.accept');
+        Route::delete('removefamily', 'FamiliesController@destroy')->name('family.remove');
+        
+    });
+    
 
 });
