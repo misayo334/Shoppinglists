@@ -19,17 +19,23 @@ class FamiliesController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $inviting_users = $user->family_inviting()->orderBy('id', 'asc')->get();
-            $invited_users = $user->family_invited()->orderBy('id', 'asc')->get();
+            $inviting_users = $user->family_inviting()->where('invitation_status', 'accepted')->orderBy('id', 'asc')->get();
+            $invited_users = $user->family_invited()->where('invitation_status', 'accepted')->orderBy('id', 'asc')->get();
+            $inviting_users_pending = $user->family_inviting()->where('invitation_status', 'invited')->orderBy('id', 'asc')->get();
+            $invited_users_pending = $user->family_invited()->where('invitation_status', 'invited')->orderBy('id', 'asc')->get();
             $inviting_users_id = $inviting_users->pluck('id');
             $invited_users_id = $invited_users->pluck('id');
-            $other_users = User::whereNotIn('id', $inviting_users_id)->whereNotIn('id', $invited_users_id)->where('id', '!=' , $user->id)->orderBy('id', 'asc')->get();
+            $inviting_users_pending_id = $inviting_users_pending->pluck('id');
+            $invited_users_pending_id = $invited_users_pending->pluck('id');
+            $other_users = User::whereNotIn('id', $inviting_users_id)->whereNotIn('id', $invited_users_id)->whereNotIn('id', $inviting_users_pending_id)->whereNotIn('id', $invited_users_pending_id)->where('id', '!=' , $user->id)->orderBy('id', 'asc')->get();
             
             
             $data = [
                 'user' => $user,
                 'inviting_users' => $inviting_users,
                 'invited_users' => $invited_users,
+                'inviting_users_pending' => $inviting_users_pending,
+                'invited_users_pending' => $invited_users_pending,
                 'other_users' => $other_users
             ];
             
@@ -93,7 +99,10 @@ class FamiliesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (\Auth::check()) {
+            \Auth::user()->accept_family_invite($id);
+            return back();
+        }
     }
 
     /**

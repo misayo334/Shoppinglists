@@ -54,7 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
     //ManageFamily機能:アクション
     Route::group(['prefix' => 'users/{id}'], function () {
         Route::post('invite', 'FamiliesController@store')->name('family.invite');
-        Route::post('accept', 'FamiliesController@update')->name('family.accept');
+        Route::put('accept', 'FamiliesController@update')->name('family.accept');
         Route::delete('removefamily', 'FamiliesController@destroy')->name('family.remove');
         
     });
