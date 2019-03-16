@@ -77,7 +77,13 @@ class ShoppingListsController extends Controller
             $user = \Auth::user();
             $shoplist = new Shoplist;
             $shoplist_item = new Shoplist_item;
-            $users = User::pluck('name', 'id');
+            
+            $family_members_inviting = $user->family_inviting()->where('invitation_status', 'accepted')->get();
+            $family_members_invited = $user->family_invited()->where('invitation_status', 'accepted')->get();
+            $users = $family_members_inviting->merge($family_members_invited);
+            $users = $users->push($user)->sortBy('id');             //自分自身を追加
+            $users = $users->pluck('name', 'id');                   //名前とuser_idのみ取り出す
+            
             $today = date("Ymd");
     
             return view('shoppinglist.create', [
@@ -174,8 +180,13 @@ class ShoppingListsController extends Controller
             $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
             $shoplist_items = $shoplist->shoplist_items()->get();
-            $users = User::pluck('name', 'id');
             $last_item_id = $shoplist->shoplist_items()->orderBy('id', 'desc')->first()->shoplist_item_id;
+            
+            $family_members_inviting = $user->family_inviting()->where('invitation_status', 'accepted')->get();
+            $family_members_invited = $user->family_invited()->where('invitation_status', 'accepted')->get();
+            $users = $family_members_inviting->merge($family_members_invited);
+            $users = $users->push($user)->sortBy('id');             //自分自身を追加
+            $users = $users->pluck('name', 'id');                   //名前とuser_idのみ取り出す
             
             $data = [
                 'user' => $user,
