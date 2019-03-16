@@ -52,7 +52,7 @@ class ShoppingListsController extends Controller
             
             $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
-            $shoplist_items = $shoplist->shoplist_items()->get();
+            $shoplist_items = $shoplist->shoplist_items()->orderBy('id', 'asc')->get();
             $shoplist_items_count = $shoplist_items->count();
             $shoplist_items_closed_count = $shoplist_items->where('item_status', 'closed')->count();
             
@@ -179,7 +179,7 @@ class ShoppingListsController extends Controller
             
             $created_by = User::find($shoplist->user_id);
             $assigned_to = User::find($shoplist->assigned_to);
-            $shoplist_items = $shoplist->shoplist_items()->get();
+            $shoplist_items = $shoplist->shoplist_items()->orderBy('id', 'asc')->get();
             $last_item_id = $shoplist->shoplist_items()->orderBy('id', 'desc')->first()->shoplist_item_id;
             
             $family_members_inviting = $user->family_inviting()->where('invitation_status', 'accepted')->get();
